@@ -1,0 +1,1 @@
+ref: https://stackimpact.com/blog/practical-golang-benchmarks/#string-concatenation
