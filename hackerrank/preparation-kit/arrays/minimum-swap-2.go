@@ -11,45 +11,35 @@ import (
 
 // Complete the minimumSwaps function below.
 func minimumSwaps(arr []int32) int32 {
-	// find source
-	// find target
-	//n := swap(arr, len(arr), 0, 0)
-	//return int32(n)
-	mem := make(map[int32][]int32)
-	//for
-}
 
-func swap(originalArray []int32, n, startIndex, depth int) int {
-	minSwap := 0
+	mem := make(map[int32]int32)
+	visits := make(map[int32]bool)
 
-	for i := 0; i < n-1; i++ {
+	for i, v := range arr {
+		mem[v] = int32(i) + 1
+	}
+	var swapCount int32
+	n := len(arr)
+	var ok bool
 
-		if i+1 != int(originalArray[i]) {
-			arr := append(originalArray[:0:0], originalArray...)
-
-			// need to swap
-			for j := 0; j < n; j++ {
-				if j == i {
-					continue
-				}
-				if i+1 == int(arr[j]) {
-					space := ""
-					for x := 0; x < depth; x++ {
-						space += "  "
-					}
-					fmt.Printf("%sswap %d - %d\n", space, arr[i], arr[j])
-					arr[i], arr[j] = arr[j], arr[i]
-					swap := 1 + swap(arr, n, i+1, depth+1)
-
-					if minSwap == 0 || minSwap > 0 && swap < minSwap {
-						minSwap = swap
-					}
-				}
-			}
+	for i := 1; i <= n; i++ {
+		if _, ok = visits[int32(i)]; ok || arr[i-1] == int32(i) {
+			continue
 		}
+		count := 0
+		j := int32(i)
+		for {
+			if visits[j] {
+				break
+			}
+			count++
+			visits[j] = true
+			j, _ = mem[j]
+		}
+		swapCount += int32(count - 1)
 	}
 
-	return minSwap
+	return swapCount
 }
 
 func main() {
