@@ -11,4 +11,5 @@ WORKDIR /app
 COPY --from=builder /go/src/main .
 ADD . .
 RUN ls -al \
-    && python interactive_runner.py python testing_tool.py 10 -- ./main
+    && python interactive_runner.py python testing_tool.py 0 -- ./main \
+    && python interactive_runner.py python testing_tool.py 1 -- ./main
